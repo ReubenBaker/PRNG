@@ -1,7 +1,7 @@
 #include "PRNG.h"
 #include <iostream>
 #include <chrono>
-#include <random> 
+#include <random>
 
 int main()
 {
@@ -10,11 +10,11 @@ int main()
 
     for (int i = 0; i < 1'000'000; i++)
     {
-        uint32_t randomNumber = prng.getRandomNumber();
+        float randomNumber = prng.getRandomNumber();
 
         if (i == 0)
         {
-            std::cout << randomNumber << std::endl;
+            std::cout << "PRNG: " << randomNumber << std::endl;
         }
     }
 
@@ -26,14 +26,15 @@ int main()
     auto startStdPRNG = std::chrono::high_resolution_clock::now();
     std::random_device rd;
     std::mt19937 mt(rd());
+    std::uniform_real_distribution<float> dist(0.0f, 1.0f);
 
     for (int i = 0; i < 1'000'000; i++)
     {
-        uint32_t randomNumber = mt();
+        float randomNumber = dist(mt);
 
         if (i == 0)
         {
-            std::cout << randomNumber << std::endl;
+            std::cout << "Standard PRNG: " << randomNumber << std::endl;
         }
     }
 
