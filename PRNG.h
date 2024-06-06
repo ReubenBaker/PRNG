@@ -7,12 +7,15 @@
 class PRNG
 {
 public:
-    PRNG();
     uint32_t getRandomNumber();
 
 private:
-    uint32_t gatherEntropy();
-    uint32_t hashEntropy(const std::vector<uint32_t> &entropySources);
+    static const int numEntropySources = 2;
+
+    std::vector<uint32_t> gatherEntropy() const;
+    uint32_t getSystemTime() const;
+    uint32_t getProcessID() const;
+    uint32_t hashEntropy(const std::vector<uint32_t> &entropySources) const;
 };
 
 #endif // PRNG_H
